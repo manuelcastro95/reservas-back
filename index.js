@@ -13,6 +13,12 @@ const prefix = '/v1';
 app.use(urlencoded({ extended: true }));
 app.use(json());
 
+app.use(cors({
+  origin: 'https://reservas-front.vercel.app/'
+}));
+
+
+
 app.use(cors());
 
 // Crear un nuevo enrutador para todas las rutas en routerApi
