@@ -3,16 +3,19 @@ const routerApi = require('./routes');
 const cors = require('cors');
 const { urlencoded, json } = require('express');
 const conexion = require('./db/dbmongo');
+require('dotenv').config();
 
 
 const app = express();
-const port = 4000;
+const port = process.env.PORT
 const prefix = '/v1';
 
 app.use(urlencoded({ extended: true }));
 app.use(json());
 
-app.use(cors());
+app.use(cors({
+  origin: 'https://reservas-back-flame.vercel.app/'
+}));
 
 // Crear un nuevo enrutador para todas las rutas en routerApi
 const reservasRouter = express.Router();
@@ -23,5 +26,5 @@ app.use(prefix, reservasRouter);
 
 app.listen(port, () => {
   console.log(`Listening at port ${port}`);
-  
+
 });
