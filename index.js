@@ -2,6 +2,8 @@ const express = require('express');
 const routerApi = require('./routes');
 const cors = require('cors');
 const { urlencoded, json } = require('express');
+const conexion = require('./db/dbmongo');
+
 
 const app = express();
 const port = 4000;
@@ -21,4 +23,5 @@ app.use(prefix, reservasRouter);
 
 app.listen(port, () => {
   console.log(`Listening at port ${port}`);
+  
 });

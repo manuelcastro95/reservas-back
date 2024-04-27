@@ -3,7 +3,10 @@ const router = express.Router();
 const reservasController = require('../controllers/reservasController');
 
 router.get('/get-paises', reservasController.getPaises);
-router.post('/store-reserva', reservasController.storeReserva)
+router.get('/load-paises', reservasController.loadPaises);
+router.post('/search-paises', reservasController.searchPaises);
+router.get('/get-reservas', reservasController.getReservas);
+router.post('/store-reserva', reservasController.storeReserva);
 
 
 module.exports = router;
