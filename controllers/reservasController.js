@@ -1,5 +1,6 @@
 const Country = require('../models/Country')
 const Reservation = require('../models/Reservation')
+const { startOfDay, endOfDay } = require('date-fns');
 
 const fs = require('fs/promises');
 const path = require('path');
@@ -86,6 +87,9 @@ const storeReserva = async (req, res) => {
 // Validar si ya existe reserva
 const validarReserva = async (origen, destino, fecha, res) => {
   try {
+    const fechaInicio = startOfDay(new Date(fecha));
+    const fechaFin = endOfDay(new Date(fecha));
+
     const reservas = await Reservation.find({
       pais_origen: origen,
       pais_destino: destino,
@@ -94,7 +98,7 @@ const validarReserva = async (origen, destino, fecha, res) => {
 
     const validacion_1= await Reservation.find({pais_origen: origen});
     const validacion_2= await Reservation.find({pais_destino: destino});
-    const validacion_3= await Reservation.find({ fecha: fecha });
+    const validacion_3= await Reservation.find({ fecha: { $gte: fechaInicio, $lte: fechaFin } });
 
     if (reservas.length > 0 || validacion_1.length > 0 || validacion_2.length > 0 || validacion_3.length > 0) {
       return true;

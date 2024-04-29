@@ -11,7 +11,7 @@ const reservationSchema =  new mongoose.Schema({
     ref: 'Country',
     required: false
   },
-  fecha: String
+  fecha: Date
 });
 
 const Reservation = mongoose.model('Reservation', reservationSchema);
